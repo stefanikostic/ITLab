@@ -1,0 +1,31 @@
+﻿@model WebApplication4.Models.FriendModel
+@{
+    ViewBag.Title = "EditFriend";
+}
+
+
+@using (Html.BeginForm("EditFriend", "Friend", FormMethod.Post))
+{
+    <h2>Edit Friend - @Model.Ime</h2>
+    <div class="form-group">
+        @Html.Label("Friend ID")
+        @Html.TextBoxFor(m => m.Id, new { @class = "form-control", type="number"})
+        @Html.ValidationMessageFor(m =>m.Id)
+    </div>
+    <div class="form-group">
+        @Html.Label("Friend Name")
+        @Html.TextBoxFor(m => m.Ime, new {@class ="form-control" })
+        @Html.ValidationMessageFor(m =>m.Ime)
+    </div>
+    <div class="form-group">
+        @Html.Label("Place")
+        @Html.TextBoxFor(m => m.MestoZiveenje, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m =>m.MestoZiveenje)
+    </div>
+    <div class="form-group" style="margin-top: 20px;">
+    <button type="submit" class="btn btn-primary" style="margin-right: 6px;">Update</button>
+    <button onclick="window.location.href='@Url.Action("AllFriends","Friend")'" type="button" class="btn btn-secondary">
+        Back</button>
+    </div>
+}
+

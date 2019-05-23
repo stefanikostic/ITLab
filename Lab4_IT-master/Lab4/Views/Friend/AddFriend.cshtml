@@ -1,0 +1,31 @@
+﻿@using Lab4.Models
+@model Lab4.Models.FriendModel
+@{
+    ViewBag.Title = "AddFriend";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add a new friend</h2>
+
+@using (Html.BeginForm("AddFriend", "Friend", FormMethod.Post))
+{
+     <div class="form-group">
+        @Html.Label("Friend ID")
+        @Html.TextBoxFor(m => m.Id, new { @class = "form-control", type="number"})
+        @Html.ValidationMessageFor(m =>m.Id)
+     </div>
+    <div class="form-group">
+        @Html.Label("Friend Name")
+        @Html.TextBoxFor(m => m.Ime, new {@class ="form-control" })
+        @Html.ValidationMessageFor(m =>m.Ime)
+    </div>
+    <div class="form-group">
+        @Html.Label("Place")
+        @Html.TextBoxFor(m => m.MestoZiveenje, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m =>m.MestoZiveenje)
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <button onclick="window.location.href='@Url.Action("AllFriends","Friend")'" type="button" class="btn btn-secondary">
+        Back</button>
+}
+

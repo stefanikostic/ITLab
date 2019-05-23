@@ -1,0 +1,63 @@
+﻿@model List<Lab4.Models.FriendModel>
+@{
+    ViewBag.Title = "listFriends";
+}
+
+<h2>Friends:</h2>
+<table style="text-align:center; display: inline-block; margin-top: 30px; margin-left: auto; margin-right: auto;">
+    <thead>
+    <tr>
+        <th style="height: 55px; width: 100px; border:1px solid black; ">Friend ID.</th>
+        <th style="height: 55px; width: 100px; border:1px solid black; ">Friend Name</th>
+        <th style="height: 55px; width: 100px; border:1px solid black; ">Place</th>
+        <th style="height: 55px; width: 100px; border:1px solid black; "></th>
+    </tr>
+    </thead>
+    <tbody>
+         @{
+        if(Model != null) {
+        foreach (FriendModel fmodel in Model)
+        {
+            <tr>
+                <td style="height: 55px; width: 100px; border:1px solid black; ">@fmodel.Id</td>
+                <td style="height: 55px; width: 130px; border:1px solid black; ">@fmodel.Ime</td>
+                <td style="height: 55px; width: 130px; border:1px solid black; ">@fmodel.MestoZiveenje</td>
+                <td style="height: 55px; width: 130px; border:1px solid black; ">
+                    <button>
+                            @Html.ActionLink("Edit", "EditFriend", new { id = fmodel.Id })
+                    </button>
+                    <button value="@friend.Id">
+                        Delete</button>
+                </td>
+            </tr>
+        }
+        }
+    }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4">
+                @Html.ActionLink("Add new friend", "AddFriend")
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var tabela = $('#dataTable').DataTable();
+            $('.kopce').on('click', function () {
+                var button = $(this);
+                $.ajax({
+                    url: "/Friend/DeleteFriend/" + button.attr("value"),
+                    method: "GET",
+                    success: function () {
+                        tabela.row(button.parents("tr")).remove().draw();
+                    }
+                })
+            })
+        });
+    </script>
+    
+    }
