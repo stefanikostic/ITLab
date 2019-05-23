@@ -1,0 +1,56 @@
+﻿@model List<Lab2.Models.FriendModel>
+@{
+    ViewBag.Title = "listFriends";
+}
+<h2>Friends:</h2>
+<table class="table" id="dataTable">
+    <thead>
+        <tr>
+            <th>Friend ID.</th>
+            <th>Friend Name</th>
+            <th>Place</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            if (Model != null) { 
+            foreach (var friend in Model)
+            {
+                <tr>
+                    <td>@friend.Id</td>
+                    <td>@friend.Ime</td>
+                    <td>@friend.MestoZiveenje</td>
+                    <td>
+                        <button class="btn">@Html.ActionLink("Edit", "EditFriend", new { id = friend.Id })</button>
+                        <button class="btn" value="@friend.Id">Delete</button>
+                    </td>
+                </tr>
+                }
+            }
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>@Html.ActionLink("Add new friend", "AddFriend")</td>
+        </tr>
+    </tfoot>
+</table>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var tabela = $('#dataTable').DataTable();
+            $('.kopce').on('click', function () {
+                var button = $(this);
+                $.ajax({
+                    url: "/Friend/DeleteFriend/"+button.attr("value"),
+                    method: "GET",
+                    success: function() {
+                        tabela.row(button.parents("tr")).remove().draw();
+                    }
+                })
+            })
+        });
+    </script>
+    }

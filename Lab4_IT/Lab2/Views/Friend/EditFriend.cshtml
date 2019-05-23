@@ -1,0 +1,39 @@
+﻿@model Lab2.Models.FriendModel
+
+@{
+    ViewBag.Title = "EditFriend";
+}
+
+<h2>EditFriend</h2>
+
+@using (Html.BeginForm("EditFriend", "Friend"))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form">
+        @Html.ValidationSummary(true, "")
+        @Html.HiddenFor(model => model.Id)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Ime, htmlAttributes: new { @class = "control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Ime, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Ime, "")
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.MestoZiveenje, htmlAttributes: new { @class = "control-label" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MestoZiveenje, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MestoZiveenje, "")
+            </div>
+        </div>
+        <div class="form-group">
+            <div>
+                <button type="submit" class="btn">Edit</button>
+            </div>
+        </div>
+    </div>
+}
+<div>
+    @Html.ActionLink("Back to the list of friends", "listFriends")
+</div>
